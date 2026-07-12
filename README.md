@@ -101,7 +101,7 @@ As noted in the original project notes, a simple product wrapper around this pip
 
 - Node detection assumes nodes are drawn as circles containing a single OCR-readable digit.
 - Edge/arrow detection quality depends entirely on the YOLO model weights used (`best.pt`), which is not included in this repo and must be trained/supplied separately — see `Strat 1/` and `Strat 2/` for the experiment strategies used to train it.
-- Detection thresholds (`DISTANCE_THRESHOLD`, `ARROW_MATCH_THRESHOLD`, `MERGE_IOU_THRESHOLD`) may need tuning for different image resolutions or drawing styles.
+- Detection thresholds (`DISTANCE_THRESHOLD`, `ARROW_MATCH_THRESHOLD`, `MERGE_IOU_THRESHOLD`) may need tuning for different image resolutions or drawings.
 - Paths in `final.py` are currently absolute/Windows-specific and should be parameterized (e.g. via CLI arguments) for portability.
 
 ## Documentation
