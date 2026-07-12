@@ -88,12 +88,16 @@ for i in range(len(edges)):
         continue
     group = [edges[i][1]]
     used[i] = True
-    for j in range(i+1, len(edges)):
-        if used[j]:
-            continue
-        if compute_iou(edges[i][1], edges[j][1]) > MERGE_IOU_THRESHOLD:
-            group.append(edges[j][1])
-            used[j] = True
+    growing = True
+    while growing:
+        growing = False
+        for j in range(len(edges)):
+            if used[j]:
+                continue
+            if any(compute_iou(box, edges[j][1]) > MERGE_IOU_THRESHOLD for box in group):
+                group.append(edges[j][1])
+                used[j] = True
+                growing = True
     merged_bbox = merge_boxes(group)
     merged_edges.append((len(merged_edges) + 1, merged_bbox))
 
@@ -202,6 +206,8 @@ for nid, (cx, cy) in id_to_coords.items():
 cv2.imwrite(output_image_path, image)
 
 with open(output_graph_txt, "w") as f:
+    node_count = (max(id_to_coords) + 1) if id_to_coords else 0
+    f.write(f"{node_count}\n")
     for u, v in G_final.edges():
         f.write(f"{u} {v}\n")
     f.write("-1")

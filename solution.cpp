@@ -16,16 +16,15 @@ int main() {
     fastio;
 
     ifstream fin("graph.txt");
+    int n;
+    fin >> n;
     vector<pi> edges;
     int a, b;
-    int max_node = 0;
     while (fin >> a) {
         if (a == -1) break;
         fin >> b;
         edges.emplace_back(a, b);
-        max_node = max({max_node, a, b});
     }
-    int n = max_node + 1;
 
     vector<vi> adj[2];
     adj[0].resize(n);

@@ -24,7 +24,7 @@ The project is split into two stages that mirror the two languages in the repo:
 4. **Edge de-duplication** – overlapping `edge` boxes (common with thick or double-rendered lines) are merged using an IoU threshold.
 5. **Edge → node matching** – for every detected edge box, the two diagonals of its bounding box are tested against nearby node coordinates (within `DISTANCE_THRESHOLD`) to figure out which pair of nodes it actually connects.
 6. **Direction resolution** – any `arrow` box that falls near one end of a matched edge determines that edge's direction (or both, if arrows are detected on both ends). Edges are added to a `networkx.DiGraph`.
-7. **Output** – an annotated image (`final_graph_result.png`) plus a plain-text edge list (`graph.txt`), one `u v` pair per line, terminated by `-1`.
+7. **Output** – an annotated image (`final_graph_result.png`) plus a plain-text edge list (`graph.txt`): a first line with the total node count `n`, followed by one `u v` pair per line, terminated by `-1`. Writing `n` explicitly (rather than inferring it from the edges) ensures isolated/edgeless nodes still count toward the graph size.
 
 ### 2. Graph → Shortest Path (`solution.cpp`, C++)
 
